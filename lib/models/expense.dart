@@ -12,7 +12,7 @@ enum Category {
 }
 
 // Expense Model
-class ExpenseModel {
+class Expense {
   // Properties
   final String id;
   final String title;
@@ -21,7 +21,7 @@ class ExpenseModel {
   final Category category;
 
   // Constructor with Initializer List
-  ExpenseModel({
+  Expense({
     required this.title,
     required this.amount,
     required this.date,
