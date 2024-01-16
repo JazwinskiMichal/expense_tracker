@@ -47,16 +47,22 @@ class ExpenseItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Title
                 Text(
                   expense.title,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Row(
                   children: [
+                    // Category Icon
                     Icon(
-                      Icons.category,
+                      categoryIcons[expense.category],
                       color: Colors.grey,
                     ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    // Category Text
                     Text(
                       expense.category.toString().split('.').last,
                       style: const TextStyle(
@@ -65,8 +71,9 @@ class ExpenseItem extends StatelessWidget {
                     ),
                   ],
                 ),
+                // Date
                 Text(
-                  expense.date.toString(),
+                  expense.formattedDate,
                   style: const TextStyle(
                     color: Colors.grey,
                   ),
