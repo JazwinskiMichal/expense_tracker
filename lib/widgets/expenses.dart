@@ -13,41 +13,31 @@ class Expenses extends StatefulWidget {
 
 class _ExpensesState extends State<Expenses> {
   // Properties
-  final List<Expense> _expenses = [
-    Expense(
-      title: 'Groceries',
-      amount: 100.00,
-      date: DateTime.now(),
-      category: Category.food,
-    ),
-    Expense(
-      title: 'Flight to Bali',
-      amount: 1000.00,
-      date: DateTime.now(),
-      category: Category.travel,
-    ),
-    Expense(
-      title: 'New Laptop',
-      amount: 1500.00,
-      date: DateTime.now(),
-      category: Category.work,
-    ),
-    Expense(
-      title: 'New Phone',
-      amount: 800.00,
-      date: DateTime.now(),
-      category: Category.leisure,
-    ),
-  ];
+  final List<Expense> _expenses = [];
 
   // Show add expenses overlay
   void _showAddExpenseOverlay(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (_) {
-        return const NewExpense();
+      builder: (ctx) {
+        return NewExpense(onAddNewExpense: _addNewExpense);
       },
     );
+  }
+
+  // Add new expense
+  void _addNewExpense(Expense expense) {
+    setState(() {
+      _expenses.add(expense);
+    });
+  }
+
+  // Remove expense
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _expenses.remove(expense);
+    });
   }
 
   // Return Widget tree
@@ -71,7 +61,10 @@ class _ExpensesState extends State<Expenses> {
         const Text('chart'),
         // Expenses List must be wrapped in Expanded widget, because its on a Column
         Expanded(
-          child: ExpensesList(expenses: _expenses),
+          child: ExpensesList(
+            expenses: _expenses,
+            removeExpense: _removeExpense,
+          ),
         ),
       ]),
     );
